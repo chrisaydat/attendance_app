@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_constructors_in_immutables, unused_import
 
 import 'package:attendance_app/components/students/student_bottom_nav_bar.dart';
 import 'package:attendance_app/helpers/database_helper.dart';

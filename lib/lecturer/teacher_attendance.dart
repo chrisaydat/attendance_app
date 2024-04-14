@@ -2,6 +2,8 @@
 
 import 'dart:ui';
 import 'package:attendance_app/helpers/database_helper.dart';
+import 'package:attendance_app/lecturer/teacher_dashboard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 // import 'database_helper.dart';
@@ -14,6 +16,13 @@ class TeacherAttendance extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Teacher Attendance'),
+        leading: IconButton(onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherDashboard()),
+            );
+
+        }, icon: Icon(CupertinoIcons.rectangle_3_offgrid)),
       ),
       body: Center(
         child: Column(
