@@ -13,28 +13,33 @@ class StudentAttendance extends StatelessWidget {
       appBar: AppBar(
         title: Text('Student Attendance'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            // Start scanning the QR code
-            String qrResult = await FlutterBarcodeScanner.scanBarcode(
-              "#ff6666",
-              "Cancel",
-              false,
-              ScanMode.DEFAULT,
-            );
-            // Navigate to fill details page
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FillDetailsPage(qrResult: qrResult),
-              ),
-            );
-          },
-          child: Text('Scan QR Code'),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 100,
+          width: double.infinity,
+          child: Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                // Start scanning the QR code
+                String qrResult = await FlutterBarcodeScanner.scanBarcode(
+                  "#ff6666",
+                  "Cancel",
+                  false,
+                  ScanMode.DEFAULT,
+                );
+                // Navigate to fill details page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FillDetailsPage(qrResult: qrResult),
+                  ),
+                );
+              },
+              child: Text('Scan QR Code'),
+            ),
+          ),
         ),
       ),
-      bottomNavigationBar: StudentBottomBar(),
     );
   }
 }
