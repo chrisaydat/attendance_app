@@ -1,6 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
+
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:attendance_app/lecturer/teacher_attendance.dart';
 import 'package:attendance_app/student/student_attendance.dart';
-import 'package:flutter/material.dart';
 
 const double kHorizontalPadding = 32.0;
 const double kVerticalPadding = 24.0;
@@ -15,7 +18,7 @@ const registerImageUrl =
     'https://flutter-ui.s3.us-east-2.amazonaws.com/login_register_illustration/undraw_Fingerprint_re_uf3f.png';
 
 class Intro extends StatelessWidget {
-  const Intro({super.key});
+  const Intro({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,13 +114,48 @@ class Intro extends StatelessWidget {
 }
 
 class LoginWithIllustration extends StatefulWidget {
-  const LoginWithIllustration({super.key});
+  const LoginWithIllustration({Key? key});
 
   @override
   State<LoginWithIllustration> createState() => _LoginWithIllustrationState();
 }
 
 class _LoginWithIllustrationState extends State<LoginWithIllustration> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signIn(BuildContext context) async {
+    try {
+      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      final User? user = userCredential.user;
+      if (user != null) {
+        // Check the user's email to determine their role
+        if (user.email != null && user.email!.contains("@teacher.com")) {
+          // Teacher authenticated, navigate to teacher dashboard
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TeacherAttendance()),
+          );
+        } else {
+          // Student authenticated, navigate to student dashboard
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => StudentAttendance()),
+          );
+        }
+      }
+    } catch (e) {
+      // Handle sign-in errors
+      print('Error signing in: $e');
+      // Show error message to the user
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,6 +195,7 @@ class _LoginWithIllustrationState extends State<LoginWithIllustration> {
             ),
             const SizedBox(height: 8),
             TextField(
+              controller: _emailController,
               style: const TextStyle(fontSize: 18),
               autofocus: true,
               textInputAction: TextInputAction.next,
@@ -176,6 +215,7 @@ class _LoginWithIllustrationState extends State<LoginWithIllustration> {
             ),
             const SizedBox(height: 8),
             TextField(
+              controller: _passwordController,
               style: const TextStyle(fontSize: 18),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -191,12 +231,7 @@ class _LoginWithIllustrationState extends State<LoginWithIllustration> {
               height: 52,
               child: SimpleElevatedButton(
                 color: primary,
-                onPressed: () {
-                   Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TeacherAttendance()),
-            );
-                },
+                onPressed: () => _signIn(context),
                 child: const Text(
                   'Sign In',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -211,7 +246,7 @@ class _LoginWithIllustrationState extends State<LoginWithIllustration> {
 }
 
 class RegisterWithIllustration extends StatefulWidget {
-  const RegisterWithIllustration({super.key});
+  const RegisterWithIllustration({Key? key});
 
   @override
   State<RegisterWithIllustration> createState() =>
@@ -310,10 +345,10 @@ class _RegisterWithIllustrationState extends State<RegisterWithIllustration> {
               child: SimpleElevatedButton(
                 color: primary,
                 onPressed: () {
-                   Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => StudentAttendance()),
-            );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => StudentAttendance()),
+                  );
                 },
                 child: const Text(
                   'Sign Up',
@@ -329,10 +364,10 @@ class _RegisterWithIllustrationState extends State<RegisterWithIllustration> {
 }
 
 class SimpleElevatedButton extends StatelessWidget {
-  const SimpleElevatedButton({this.child, this.color, this.onPressed, super.key});
-  final Color? color;
-  final Widget? child;
-  final Function? onPressed;
+  const SimpleElevatedButton({required this.child, required this.color, required this.onPressed, Key? key});
+  final Color color;
+  final Widget child;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -343,7 +378,7 @@ class SimpleElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      onPressed: onPressed as void Function()?,
+      onPressed: onPressed,
       child: child,
     );
   }
@@ -354,10 +389,10 @@ class SimpleOutlinedButton extends StatelessWidget {
       {required this.child,
       required this.color,
       required this.onPressed,
-      super.key});
+      Key? key});
   final Color color;
   final Widget child;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -369,7 +404,7 @@ class SimpleOutlinedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
-      onPressed: onPressed as void Function()?,
+      onPressed: onPressed,
       child: child,
     );
   }
@@ -383,9 +418,9 @@ class SimpleIconButton extends StatelessWidget {
       this.outlineColor = Colors.transparent,
       this.notificationFillColor = Colors.red,
       this.notificationCount,
-      this.onPressed,
+      required this.onPressed,
       this.radius = 48.0,
-      super.key});
+      Key? key});
 
   final IconData iconData;
   final Color fillColor;
@@ -393,7 +428,7 @@ class SimpleIconButton extends StatelessWidget {
   final Color iconColor;
   final Color notificationFillColor;
   final int? notificationCount;
-  final Function? onPressed;
+  final VoidCallback onPressed;
   final double radius;
 
   @override
@@ -414,7 +449,7 @@ class SimpleIconButton extends StatelessWidget {
             iconSize: radius / 2,
             icon: Icon(iconData, color: iconColor),
             splashColor: iconColor.withOpacity(.4),
-            onPressed: onPressed as void Function()?,
+            onPressed: onPressed,
           ),
         ),
         if (notificationCount != null) ...[
@@ -444,4 +479,10 @@ class SimpleIconButton extends StatelessWidget {
       ],
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Intro(),
+  ));
 }

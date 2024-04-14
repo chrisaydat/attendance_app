@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_constructors_in_immutables, unused_import
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_constructors_in_immutables, unused_import, unused_element
 
 import 'package:attendance_app/components/students/student_bottom_nav_bar.dart';
 import 'package:attendance_app/helpers/database_helper.dart';
+import 'package:attendance_app/student/student_dashbaord.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 // import 'database_helper.dart';
@@ -12,6 +15,23 @@ class StudentAttendance extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Student Attendance'),
+        leading: IconButton(onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentDashboard()),
+            );
+
+        }, icon: Icon(CupertinoIcons.doc_text_search)),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout), // You can replace this with your logout icon
+            onPressed: () {
+              _logout(context);
+              // Perform logout action here
+              // For example, you might want to clear authentication tokens and navigate to the login screen
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -86,3 +106,14 @@ class FillDetailsPage extends StatelessWidget {
     );
   }
 }
+
+ void _logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut(); // Sign out the user from Firebase
+      // Navigate to the login screen or any other desired screen
+      Navigator.pushReplacementNamed(context, '/login'); // Replace '/login' with the route for your login screen
+    } catch (e) {
+      print("Error signing out: $e");
+      // Handle sign-out errors, if any
+    }
+  }

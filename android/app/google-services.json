@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "1016318855438",
+    "project_id": "rts-retail",
+    "storage_bucket": "rts-retail.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016318855438:android:23233b393e2d84c9556f5f",
+        "android_client_info": {
+          "package_name": "com.aydat.atsretail"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT79rwizCDlxHzCNCsQ9zhjwyOFxCaKFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016318855438:android:dadabd24bf33753d556f5f",
+        "android_client_info": {
+          "package_name": "com.example.attendance_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT79rwizCDlxHzCNCsQ9zhjwyOFxCaKFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016318855438:android:42b038761dd0d10b556f5f",
+        "android_client_info": {
+          "package_name": "com.example.nutrimind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT79rwizCDlxHzCNCsQ9zhjwyOFxCaKFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
