@@ -1,4 +1,5 @@
 import 'package:attendance_app/lecturer/teacher_attendance.dart';
+import 'package:attendance_app/student/student_attendance.dart';
 import 'package:flutter/material.dart';
 
 const double kHorizontalPadding = 32.0;
@@ -308,7 +309,12 @@ class _RegisterWithIllustrationState extends State<RegisterWithIllustration> {
               height: 52,
               child: SimpleElevatedButton(
                 color: primary,
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentAttendance()),
+            );
+                },
                 child: const Text(
                   'Sign Up',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

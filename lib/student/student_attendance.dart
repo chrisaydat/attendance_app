@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, use_build_context_synchronously, prefer_const_constructors_in_immutables
 
+import 'package:attendance_app/components/students/student_bottom_nav_bar.dart';
 import 'package:attendance_app/helpers/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -33,6 +34,7 @@ class StudentAttendance extends StatelessWidget {
           child: Text('Scan QR Code'),
         ),
       ),
+      bottomNavigationBar: StudentBottomBar(),
     );
   }
 }

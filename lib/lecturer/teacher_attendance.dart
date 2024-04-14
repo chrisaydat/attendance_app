@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, use_key_in_widget_constructors, must_be_immutable
 
 import 'dart:ui';
 import 'package:attendance_app/helpers/database_helper.dart';
